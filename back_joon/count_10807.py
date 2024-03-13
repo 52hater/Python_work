@@ -8,7 +8,7 @@
 # 첫째 줄에 입력으로 주어진 N개의 정수 중에 v가 몇 개인지 출력한다.
 
 N = int(input())
-N_list = list(map(int, input().split())) #int함수가 무조건 먼저 나와야되네, 왜? 
+N_list = list(map(int, input().split())) #int함수가 무조건 먼저 나와야되네, 왜?  // 정수형으로 변환시켜주는 맵함수(?)
 # 사용자가 입력한 값은 기본적으로 문자열 형태로 들어옴, 따라서 int 함수가 먼저 나오는 것은 사용자 입력값을 정수로 변환하는 과정이 리스트로 만드는 과정보다 먼저 이루어져야 하기 때문(순서대로!)
 v = int(input())
 print(N_list.count(v))

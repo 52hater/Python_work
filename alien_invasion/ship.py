@@ -15,27 +15,26 @@ screen = pygame.display.set_mode((WIDTH,720)) # 여기서 720은 상수니까 �
 clock = pygame.time.Clock()
 image = pygame.image.load('./alien_invasion/images/ship.bmp') # 이미지도 불변하는 상수니까 드래그 우클릭 리팩터 변수추출 리네임 SHIP_IMG_PATH 와 같이
 # rect = pygame.Rect((1280/2, 720/2), (400, 400))
-ship_rect = image.get_rect()
+ship_rect = image.get_rect() #이미지라는 객체에서 겟 렉트
 # image_rect.left = 1280/2
 # image_rect.top = 600
 # image_rect.midbottom = screen.get_rect().midbottom
 # screen_rect = pygame.Rect(0, 0, 1280, 720) # 이렇게 렉터라는 객체를 만들었고
-screen_rect = screen.get_rect() # 렉터객체를 받아놨다 , 만들어놓은걸 그냥 주는거
+screen_rect = screen.get_rect() # 렉트객체를 받아놨다 , 만들어놓은걸 그냥 주는거
 # image_rect = image.get_rect() # 이미지 로드할때 렉트를 만들어놨다
-ship_rect.midbottom = screen_rect.midbottom
+ship_rect.midbottom = screen_rect.midbottom # 렉트는 객체
 
 #rect = image.get_rect()
 
 def create_bullet(ship_rect):
     bullet = pygame.Rect(0, 0, 5, 30)
     bullet.midtop = ship_rect.midtop # 여기에 + ship_rect.height 하면 총알이 앞에서 나갈것같은데 오류가 남 왜지
-    bullet.top -= ship_rect.height # 이렇게 하면 총알이 우주선 앞에서 나가네
+    bullet.top -= ship_rect.height # 이렇게 하면 총알이 우주선 앞에서 나가네(왼쪽제일위가 0,0이니까 우주선사각형높이만큼 빼주면 그만큼 위로(-))
     return bullet
 
-bullets = []
+bullets = [] # 리스트 > 총알들
 bullet = create_bullet(ship_rect)
 bullets.append(bullet)
-bullet = create_bullet(ship_rect)
 bullet_color = (120, 50, 50)
 
 while True: # 무한루프 > if로 탈출
@@ -64,8 +63,9 @@ while True: # 무한루프 > if로 탈출
     new_bullets = []
     for bullet in bullets:
         bullet.top -= 10
-        if screen_rect.top < bullet.top:
-            bullet.top -= 1
+        if screen_rect.top < bullet.top: #스크린의 맨 위가 총알의 맨 위보다 작다(더 위다) : 총알이 아직 천장까지 안닿은거지
+
+            bullet.top -= 1 # 이게 숫자가 커질수록 총알이 빨라지지
             new_bullets.append(bullet)
 
     screen.fill("grey")  # Fill the display with a solid color / 디폴트는 까만색
@@ -76,7 +76,7 @@ while True: # 무한루프 > if로 탈출
 
     screen.blit(image, ship_rect) #네모의 위치에다가 뿌려라
     #screen.blit(image, image.get_lect())
-    pygame.draw.rect(screen, bullet_color, bullet)
+    pygame.draw.rect(screen, bullet_color, bullet) #파라미터 순서??
 
 
     pygame.display.flip()  # Refresh on-screen display / 플립:뒤집다 > 왜 뒤집지 > 위아래변경 > 뭔가동작을?끝내고? 새로 그리는?? > 리프레쉬될때 자연스럽게 나오게 60fps
