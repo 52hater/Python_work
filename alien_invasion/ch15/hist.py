@@ -1,3 +1,5 @@
+# 히스토그램
+
 import matplotlib.pyplot as plt
 import random
 
