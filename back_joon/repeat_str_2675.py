@@ -11,8 +11,12 @@
 # 출력
 # 각 테스트 케이스에 대해 P를 출력한다.
 
-repetition = int(input())
+TestCase_T = int(input())
 
-for i in range(repetition):
-    words = list(input().split())
-    print(words * repetition)
+for _ in range(TestCase_T):
+    repetition_R = int(repetition_R)
+    words_S = list(input().split())
+    repetition_R = input()
+
+    for char in words_S:
+        print(char * repetition_R)
